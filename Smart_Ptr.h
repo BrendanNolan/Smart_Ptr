@@ -37,7 +37,7 @@ public:
     // The compiler-defined shallow copy is what we want, due to the design of 
     // the size_Ptr class. However, in order to obey the rule of three, we 
     // define this shallow copy constructor
-    Smart_Ptr(const Smart_Ptr& o);
+    Smart_Ptr(const Smart_Ptr&);
 
     // When the Smart_Ptr destructor is finished running, it will run the 
     // destructor for ref_counter; this will conditionally free the memory where 
