@@ -1,0 +1,1 @@
+Based loosely on the Ptr class from the book Accelerated C++ by Kenig and Moo.
