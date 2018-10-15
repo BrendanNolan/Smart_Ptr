@@ -34,18 +34,22 @@ public:
     // and that default initalization does what we want.
     Smart_Ptr(): raw_ptr(0) {}
     Smart_Ptr(T* other_raw): raw_ptr(other_raw) {}
-    // WE DO NOT NEED A COPY CONSTRUCTOR - the compiler-defined shallow copy is 
-    // what we want, due to the design of the size_Ptr class
+    // The compiler-defined shallow copy is what we want, due to the design of 
+    // the size_Ptr class. However, in order to obey the rule of three, we 
+    // define this shallow copy constructor
+    Smart_Ptr(const Smart_Ptr& o);
 
     // When the Smart_Ptr destructor is finished running, it will run the 
     // destructor for ref_counter; this will conditionally free the memory where 
     // ref_counter (or rather its raw_s_ptr member) points. 
     ~Smart_Ptr() { if (ref_count() == 1) delete raw_ptr; }
 
+
     Smart_Ptr& operator=(const Smart_Ptr&);
     T& operator*() const;
     T* operator->() const;
     operator bool() const { return raw_ptr; }
+
 
     std::size_t ref_count() const { return ref_counter.pointee_val(); }
     void make_unique();
@@ -58,6 +62,11 @@ private:
 // End Smart_Ptr class main body -----------------------------------------------
 
 // Begin definitions of Smart_Ptr class methods --------------------------------
+
+template <typename T>
+Smart_Ptr<T>::Smart_Ptr(const Smart_Ptr& o): raw_ptr(o.raw_ptr), 
+    ref_counter(o.ref_counter) 
+{}
 
 
 template <typename T>
