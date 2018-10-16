@@ -109,7 +109,7 @@ void Smart_Ptr<T>::make_unique()
 {
     if (ref_count() != 1)
     { 
-        raw_ptr = clone(raw_ptr);
+        raw_ptr = (raw_ptr ? clone(raw_ptr) : 0);
 
         // construct a size_Ptr object from a size_t* and assigns it to 
         // ref_counter (the assignment increments the pointee from 0 to 1).

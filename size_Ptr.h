@@ -4,8 +4,8 @@
 /*
 What you need to worry about in this class and in the Smart_Ptr class that uses  
 it is the possibility that the ref_count can reach zero without the space being 
-freed, be that the space storing the count or the space storing the object which
-that Smart_Ptr (or rather its raw_ptr member) is pointing to. 
+freed, whether that is the space storing the count or the space storing the 
+object which that Smart_Ptr (or rather its raw_ptr member) is pointing to. 
 
 This class should not have pointer interface I think. It should seem like just a 
 size_t.
