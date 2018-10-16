@@ -3,8 +3,8 @@
 
 /*
 This class should have minimal pointer interface I think. It should seem like a 
-self-updating std::size_t insofar as is possible. However, it does need a constructor
-that takes a std::size_t*.
+self-updating std::size_t insofar as is possible. However, it does need a 
+constructor that takes a std::size_t*.
 */
 
 #include <cstdlib>
