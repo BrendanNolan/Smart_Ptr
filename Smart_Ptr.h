@@ -38,9 +38,12 @@ public:
     // define this shallow copy constructor
     Smart_Ptr(const Smart_Ptr&);
 
-    // When the Smart_Ptr destructor is finished running, it will run the 
-    // destructor for ref_counter; this will conditionally free the memory where 
-    // ref_counter (or rather its raw_s_ptr member) points. 
+    // Again we do not need to worry about managing the control block memory or
+    // its count;
+    // when the Smart_Ptr destructor is finished running, the destructor for 
+    // ref_counter will then be run; this will update the count and 
+    // conditionally free the memory where ref_counter (or rather its raw_s_ptr 
+    // member) points. 
     ~Smart_Ptr() { if (ref_count() == 1) delete raw_ptr; }
 
 
@@ -71,18 +74,16 @@ Smart_Ptr<T>::Smart_Ptr(const Smart_Ptr& o): raw_ptr(o.raw_ptr),
 template <typename T>
 Smart_Ptr<T>& Smart_Ptr<T>::operator=(const Smart_Ptr& rhs)
 {
-    std::size_t original_lhs_ref_count = ref_count();
-    std::size_t original_rhs_ref_count = rhs.ref_count();
+    if (ref_counter != rhs.ref_counter)
+    {
+        if (ref_count() == 1)
+            delete raw_ptr;
+        
+        ref_counter = rhs.ref_counter; // this updates the counts automatically
 
-    ref_counter = rhs.ref_counter; // this updates the counts automatically
-
-    // if self-assignment has not occured and the reference count for the T 
-    // object to which raw_ptr originally pointed has reached zero
-    if (original_lhs_ref_count == 1 && ref_count() > original_rhs_ref_count) 
-        delete raw_ptr;
-
-    raw_ptr = rhs.raw_ptr;
-
+        raw_ptr = rhs.raw_ptr;
+    }
+    
     return *this;
 }
 

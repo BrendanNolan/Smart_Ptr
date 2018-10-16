@@ -9,10 +9,10 @@ bool operator==(const size_Ptr& a, const size_Ptr& b)
 
 bool operator!=(const size_Ptr& a, const size_Ptr& b)
 {
-    return a.raw_s_ptr != b.raw_s_ptr;
+    return !(a == b);
 }
 
-// End definitions of sie_Ptr friends ------------------------------------------
+// End definitions of size_Ptr friends -----------------------------------------
 
 // Begin definitions of size_Ptr methods ---------------------------------------
 
