@@ -30,12 +30,13 @@ class Smart_Ptr
 public: 
     // The default constructor and the constructor taking a raw pointer 
     // need not worry about the ref_counter member - this is default initialized
-    // and that default initalization does what we want.
+    // and that default initalization does what we want - it points ref_counter
+    // to a new control block with value 1.
     Smart_Ptr(): raw_ptr(0) {}
-    Smart_Ptr(T* other_raw): raw_ptr(other_raw) {}
+    Smart_Ptr(const T* other_raw): raw_ptr(other_raw) {}
     // The compiler-defined shallow copy is what we want, due to the design of 
-    // the size_Ptr class. However, in order to obey the rule of three, we 
-    // define this shallow copy constructor
+    // the size_Ptr class, which updates counts automatically. However, in order 
+    // to obey the rule of three, we define this shallow copy constructor. 
     Smart_Ptr(const Smart_Ptr&);
 
     // Again we do not need to worry about managing the control block memory or
@@ -78,10 +79,9 @@ Smart_Ptr<T>& Smart_Ptr<T>::operator=(const Smart_Ptr& rhs)
     {
         if (ref_count() == 1)
             delete raw_ptr;
-        
-        ref_counter = rhs.ref_counter; // this updates the counts automatically
 
         raw_ptr = rhs.raw_ptr;
+        ref_counter = rhs.ref_counter; // this updates the counts automatically
     }
     
     return *this;
