@@ -110,9 +110,15 @@ void Smart_Ptr<T>::make_unique()
     { 
         raw_ptr = (raw_ptr ? clone(raw_ptr) : 0);
 
-        // construct a size_Ptr object from a size_t* and assigns it to 
-        // ref_counter (the assignment increments the pointee from 0 to 1).
-        ref_counter = new std::size_t(0);
+        // construct a size_Ptr pointing at 1
+        size_Ptr temp(1);
+        // assign temp to ref_counter
+        ref_counter = temp;
+        /* 
+            Now ref_counter points at 2 but when make_unique returns, temp will 
+            die and the size_Ptr destructor will decrement the pointee of 
+            ref_counter back to 1.
+        */
     }
 }
 
