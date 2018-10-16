@@ -9,6 +9,6 @@ obey the rule of three, I write the definition of the Smart_Ptr copy
 constructor rather than allowing the compiler to define it silently). Smart_Ptr has 
 the same interface as Ptr but almost all of Smart_Ptr's methods are simpler due
 to the self-managing size_Ptr class used for reference counting. The only 
-method definitions shared between Smart_Ptr and Ptr are the * and -> operators, 
+method definitions shared between Smart_Ptr and Ptr are the * and -> operators and 
 the bool conversion operator; both Ptr and Smart_Ptr also use the same definition
 for the gloobal clone function. 
