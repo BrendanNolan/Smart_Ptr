@@ -30,12 +30,6 @@ public:
     size_Ptr& operator=(const size_Ptr&);
 
     std::size_t pointee_val() const { return *raw_s_ptr; }
-    
-    // increment pointee, then returns *this
-    const size_Ptr& inc() const;
-    // decrement pointee, if pointee reaches 0, delete raw_s_ptr and set to 0,
-    // then return *this
-    size_Ptr& dec();
 
     operator bool() const { return raw_s_ptr; }
 private:
