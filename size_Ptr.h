@@ -17,6 +17,10 @@ that takes a std::size_t*.
 
 class size_Ptr 
 {
+friend bool operator==(const size_Ptr&, const size_Ptr&);
+friend bool operator!=(const size_Ptr&, const size_Ptr&);
+
+
 public:
     size_Ptr(): raw_s_ptr(new std::size_t(1)) {}
     size_Ptr(std::size_t* other_s_ptr): raw_s_ptr(other_s_ptr) {}
@@ -28,6 +32,7 @@ public:
     std::size_t val() const { return *raw_s_ptr; }
 
     operator bool() const { return raw_s_ptr; }
+
 private:
     std::size_t* raw_s_ptr;
 };
