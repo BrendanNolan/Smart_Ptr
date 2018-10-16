@@ -8,13 +8,12 @@
 
 // Begin definitions of global utility functions -------------------------------
 
+// clone is never called on an unbound pointer, so in the definition of clone, 
+// we do not need to check that p is bound. 
 template <typename T>
 T* clone(const T* p)
 {
-    if (p)
-        return p->clone();
-    
-    throw std::runtime_error("unbound pointer passed to global clone function");
+    return p->clone();    
 }
 
 // End definitions of global utility functions ---------------------------------
@@ -51,7 +50,7 @@ public:
     operator bool() const { return raw_ptr; }
 
 
-    std::size_t ref_count() const { return ref_counter.pointee_val(); }
+    std::size_t ref_count() const { return ref_counter.val(); }
     void make_unique();
 
 private:
@@ -75,10 +74,10 @@ Smart_Ptr<T>& Smart_Ptr<T>::operator=(const Smart_Ptr& rhs)
     std::size_t original_lhs_ref_count = ref_count();
     std::size_t original_rhs_ref_count = rhs.ref_count();
 
-    ref_counter = rhs.ref_counter; // this updates the count automatically
+    ref_counter = rhs.ref_counter; // this updates the counts automatically
 
-    // if self-assignment has not occured and the assignment has lowered the
-    // reference count to zero
+    // if self-assignment has not occured and the reference count for the T 
+    // object to which raw_ptr originally pointed has reached zero
     if (original_lhs_ref_count == 1 && ref_count() > original_rhs_ref_count) 
         delete raw_ptr;
 

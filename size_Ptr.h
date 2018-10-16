@@ -2,13 +2,9 @@
 #define SIZE_PTR_H
 
 /*
-What you need to worry about in this class and in the Smart_Ptr class that uses  
-it is the possibility that the ref_count can reach zero without the space being 
-freed, whether that is the space storing the count or the space storing the 
-object which that Smart_Ptr (or rather its raw_ptr member) is pointing to. 
-
-This class should not have pointer interface I think. It should seem like just a 
-size_t.
+This class should have minimal pointer interface I think. It should seem like a 
+self-updating std::size_t insofar as is possible. However, it does need a constructor
+that takes a std::size_t*.
 */
 
 #include <cstdlib>
@@ -29,7 +25,7 @@ public:
 
     size_Ptr& operator=(const size_Ptr&);
 
-    std::size_t pointee_val() const { return *raw_s_ptr; }
+    std::size_t val() const { return *raw_s_ptr; }
 
     operator bool() const { return raw_s_ptr; }
 private:
