@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-#include "size_Ptr.h"
+#include "ctrl_block.h"
 
 // Begin definitions of global utility functions -------------------------------
 
@@ -35,8 +35,8 @@ public:
     Smart_Ptr(): raw_ptr(0) {}
     Smart_Ptr(const T* other_raw): raw_ptr(other_raw) {}
     // The compiler-defined shallow copy is what we want, due to the design of 
-    // the size_Ptr class, which updates counts automatically. However, in order 
-    // to obey the rule of three, we define this shallow copy constructor. 
+    // the ctrl_block class, which updates counts automatically. However, in 
+    // order to obey the rule of three, we define this shallow copy constructor. 
     Smart_Ptr(const Smart_Ptr&);
 
     // Again we do not need to worry about managing the control block memory or
@@ -59,7 +59,7 @@ public:
 
 private:
     T* raw_ptr;
-    size_Ptr ref_counter;    
+    ctrl_block ref_counter;    
 };
 
 // End Smart_Ptr class main body -----------------------------------------------
@@ -111,13 +111,13 @@ void Smart_Ptr<T>::make_unique()
     { 
         raw_ptr = (raw_ptr ? clone(raw_ptr) : 0);
 
-        // construct a size_Ptr pointing at 1
-        size_Ptr temp(1);
+        // construct a ctrl_block pointing at 1
+        ctrl_block temp(1);
         // assign temp to ref_counter
         ref_counter = temp;
         /* 
             Now ref_counter points at 2 but when make_unique returns, temp will 
-            die and the size_Ptr destructor will decrement the pointee of 
+            die and the ctrl_block destructor will decrement the pointee of 
             ref_counter back to 1.
         */
     }
