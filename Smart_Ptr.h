@@ -23,7 +23,7 @@ T* clone(const T* p)
 // Begin Smart_Ptr class =======================================================
 
 // Begin Smart_Ptr class main body ---------------------------------------------
-
+ 
 template <typename T>
 class Smart_Ptr 
 {
@@ -33,7 +33,7 @@ public:
     // and that default initalization does what we want - it points ref_counter
     // to a new control block with value 1.
     Smart_Ptr(): raw_ptr(0) {}
-    Smart_Ptr(const T* other_raw): raw_ptr(other_raw) {}
+    Smart_Ptr(T* other_raw): raw_ptr(other_raw) {}
     // The compiler-defined shallow copy is what we want, due to the design of 
     // the ctrl_block class, which updates counts automatically. However, in 
     // order to obey the rule of three, we define this shallow copy constructor. 
