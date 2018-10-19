@@ -1,4 +1,4 @@
-# Smart_Ptr reference-counted shared pointer class
+# Smart_Ptr: a reference-counted shared pointer class
 
 My Smart_Ptr class is based very loosely on the Ptr class from the book "Accelerated 
 C++" by Kenig and Moo. Smart_Ptr differs from Ptr in several ways, most notably that 
