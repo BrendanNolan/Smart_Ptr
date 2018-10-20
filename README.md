@@ -15,11 +15,11 @@ method definitions shared between Smart_Ptr and Ptr are the * and -> operators a
 the bool conversion operator; both Ptr and Smart_Ptr also use the same definition
 for the global clone function. 
 
-If you wish to use Smart_Ptr<C> for a class C which does not have a 
+If you wish to use `Smart_Ptr<C>` for a class `C` which does not have a 
 clone method, then define the following template specialization
 
-template <>
-C* clone(const C* ptr)
-{
-    return new C(*ptr);
-}
+`template <>` <br />
+`C* clone(const C* ptr)` <br />
+`{` <br />
+    `return new C(*ptr);` <br />
+`}` <br />
