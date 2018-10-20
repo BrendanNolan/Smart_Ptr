@@ -19,7 +19,4 @@ If you wish to use `Smart_Ptr<C>` for a class `C` which does not have a
 clone method, then define the following template specialization
 
 `template <>` <br />
-`C* clone(const C* ptr)` <br />
-`{` <br />
-    `return new C(*ptr);` <br />
-`}` <br />
+`C* clone(const C* ptr) { return new C(*ptr); }` <br />
